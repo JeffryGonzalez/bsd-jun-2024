@@ -9,5 +9,6 @@ POST http://localhost:1337/software/1a799cb1-6f18-4b69-8bb5-41f18cf32269/issues
 Content-Type: application/json
 
 {
-  "description": "Th"
+  "description": "This sucks",
+  "impact": "Question"
 }

@@ -1,9 +1,13 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Marten;
+using System.ComponentModel.DataAnnotations;
 
 namespace IssueTracker.Api.Issues;
 
-public class Api : ControllerBase
+public class Api(IDocumentSession session) : ControllerBase
 {
+
+
+
     [HttpPost("/software/{id:guid}/issues")]
     public async Task<ActionResult> CreateAnIssueAsync(
          Guid id,
@@ -25,6 +29,9 @@ public class Api : ControllerBase
             Impact = request.Impact.Value,
             Status = IssueStatus.Submitted
         };
+
+        session.Store(response);
+        await session.SaveChangesAsync();
         return Ok(response);
     }
 

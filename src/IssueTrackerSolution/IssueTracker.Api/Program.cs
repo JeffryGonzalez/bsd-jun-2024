@@ -1,5 +1,4 @@
-
-
+using Marten;
 using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,6 +15,13 @@ builder.Services.AddControllers().AddJsonOptions(options =>
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+var connectionString = builder.Configuration.GetConnectionString("issues") ?? throw new Exception("No Connnection String");
+
+builder.Services.AddMarten(options => // injectable service called IDocumentSesssion
+{
+    options.Connection(connectionString);
+}).UseLightweightSessions();
 
 var app = builder.Build(); // after this, phase 2 - we have the "background" stuff set up, now let's talk about
 // how we are going to handle incoming requests and make responses.

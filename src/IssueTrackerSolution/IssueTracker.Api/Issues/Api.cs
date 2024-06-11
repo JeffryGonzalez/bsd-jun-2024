@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace IssueTracker.Api.Issues;
 
-public class Api(IDocumentSession session, IAssignStatusToIssues statusAssigner) : ControllerBase
+public class Api(IDocumentSession session, IAssignStatusToIssues statusAssigner, SupportTechHttpClient supportApi) : ControllerBase
 {
 
 
@@ -29,6 +29,16 @@ public class Api(IDocumentSession session, IAssignStatusToIssues statusAssigner)
             Impact = request.Impact.Value,
             Status = await statusAssigner.GetStatusForIssueAsync(request) // WTCYWYH
         };
+        // if the status is high proirity blah blah
+        // call into another API (Microservice!) that we will build 
+        // and get the contact information.
+        // GET http://otherapi/techs/{id}
+        if (response.Status == IssueStatus.AssignedToHighPriorityTech)
+        {
+            var supportInfo = await supportApi.GetSupportPersonAsync(id);
+            response.SupportInformation = supportInfo;
+        }
+
 
         session.Store(response);
         await session.SaveChangesAsync();
@@ -87,4 +97,5 @@ public record IssueResponse
     public string Description { get; set; } = string.Empty;
     public IssueImpact Impact { get; set; }
     public IssueStatus Status { get; set; }
+    public SupportInformation? SupportInformation { get; set; }
 }

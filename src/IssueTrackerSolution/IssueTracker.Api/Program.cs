@@ -21,6 +21,11 @@ builder.Services.AddScoped<IAssignStatusToIssues, StandardIssueStatusAssigner>()
 
 var connectionString = builder.Configuration.GetConnectionString("issues") ?? throw new Exception("No Connnection String");
 
+var supportApiUrl = builder.Configuration.GetConnectionString("support-api") ?? throw new Exception("No URL for Support Api");
+builder.Services.AddHttpClient<SupportTechHttpClient>(client =>
+{
+    client.BaseAddress = new Uri(supportApiUrl);
+});
 builder.Services.AddMarten(options => // injectable service called IDocumentSesssion
 {
     options.Connection(connectionString);

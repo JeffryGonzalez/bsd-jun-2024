@@ -1,0 +1,13 @@
+{
+    "request": {
+        "urlPattern": "/techs/.*",
+        "method": "GET"
+    },
+    "response": {
+        "status": 200,
+        "jsonBody": {
+            "name": "Jane Smith",
+            "phoneNumber": "867-5309"
+        }
+    }
+}

@@ -1,4 +1,5 @@
 ﻿
+
 namespace IssueTracker.Api.Issues;
 
 public class UserSpecificIssueStatusAssigner : IAssignStatusToIssues

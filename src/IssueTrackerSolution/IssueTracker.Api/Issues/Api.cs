@@ -35,14 +35,32 @@ public class Api(IDocumentSession session) : ControllerBase
         return Ok(response);
     }
 
-
-
-    [HttpPost("/software/{id:guid}/issues/questions")]
-    public async Task<ActionResult> CreateAQuestionIssueAsync(Guid id)
+    [HttpGet("/software/{id:guid}/issues/{issueId:guid}")]
+    public async Task<ActionResult> GetIssueAsync(Guid id, Guid issueId)
     {
-        return Ok();
 
+        var savedIssue = await session.Query<IssueResponse>()
+            .Where(iss => iss.Id == issueId)
+            .SingleOrDefaultAsync(); // this should return zero or 1 issue.
+
+        if (savedIssue == null)
+        {
+            return NotFound(); // 404
+        }
+        else
+        {
+            return Ok(savedIssue);
+        }
     }
+
+    [HttpGet("/software/{id:guid}/issues")]
+    public async Task<ActionResult> GetAllIssuesFor()
+    {
+        var issues = await session.Query<IssueResponse>().ToListAsync();
+
+        return Ok(new { issues, page = 1, of = 10 });
+    }
+
 }
 
 

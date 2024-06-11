@@ -9,6 +9,20 @@ POST http://localhost:1337/software/1a799cb1-6f18-4b69-8bb5-41f18cf32269/issues
 Content-Type: application/json
 
 {
-  "description": "This sucks",
-  "impact": "Question"
+  "description": "Won't Shutdown",
+  "impact": "WorkStoppage"
 }
+
+
+###
+
+GET http://localhost:1337/software/1a799cb1-6f18-4b69-8bb5-41f18cf32269/issues/842a47ce-6147-42c2-ac75-18871b4a24de
+
+
+###
+GET http://localhost:1337/software/1a799cb1-6f18-4b69-8bb5-41f18cf32269/issues/
+
+### 
+
+GET http://localhost:1337/issues
+

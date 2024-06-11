@@ -1,3 +1,4 @@
+using IssueTracker.Api.Issues;
 using Marten;
 using System.Text.Json.Serialization;
 
@@ -15,6 +16,8 @@ builder.Services.AddControllers().AddJsonOptions(options =>
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddScoped<IAssignStatusToIssues, StandardIssueStatusAssigner>();
 
 var connectionString = builder.Configuration.GetConnectionString("issues") ?? throw new Exception("No Connnection String");
 

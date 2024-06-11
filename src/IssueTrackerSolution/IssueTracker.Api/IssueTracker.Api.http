@@ -10,7 +10,7 @@ Content-Type: application/json
 
 {
   "description": "Won't Shutdown",
-  "impact": "WorkStoppage"
+  "impact": "ProductionStoppage"
 }
 
 

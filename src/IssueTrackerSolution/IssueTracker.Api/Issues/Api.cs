@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace IssueTracker.Api.Issues;
 
-public class Api(IDocumentSession session) : ControllerBase
+public class Api(IDocumentSession session, IAssignStatusToIssues statusAssigner) : ControllerBase
 {
 
 
@@ -27,7 +27,7 @@ public class Api(IDocumentSession session) : ControllerBase
             Id = Guid.NewGuid(),
             Description = request.Description,
             Impact = request.Impact.Value,
-            Status = IssueStatus.Submitted
+            Status = await statusAssigner.GetStatusForIssueAsync(request) // WTCYWYH
         };
 
         session.Store(response);

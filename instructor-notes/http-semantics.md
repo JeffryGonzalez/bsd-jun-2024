@@ -69,3 +69,10 @@ Authorization: bearer 894098409
     
 }
 
+
+POST /software/{id}/issues/questions
+POST /software/{id}/issues/inconvniences
+POST /software/{id}/issues/workstoppages
+POST /software/{id}/issues/productionstoppages
+
+

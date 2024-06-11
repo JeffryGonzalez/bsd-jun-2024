@@ -10,5 +10,5 @@ Content-Type: application/json
 
 {
   "description": "Dang Thing Don't Work",
-  "impact": 0
+  "impact": "Inconvenience"
 }

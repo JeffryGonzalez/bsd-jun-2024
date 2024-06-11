@@ -3,6 +3,7 @@
 using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
+// builder with what Microsoft thinks is a reasonable set of of defaults.
 
 // Add services to the container. - behind the scenes stuff that is our code, or how we are going to connedct
 // attached resources (databases, other apis, etc.)

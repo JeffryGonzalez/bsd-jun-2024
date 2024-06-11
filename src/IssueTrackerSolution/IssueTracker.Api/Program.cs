@@ -1,12 +1,17 @@
 
 
+using System.Text.Json.Serialization;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container. - behind the scenes stuff that is our code, or how we are going to connedct
 // attached resources (databases, other apis, etc.)
 
 
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+});
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -25,6 +30,8 @@ app.UseAuthorization();
 
 app.MapControllers(); // Using REFLECTION, go make a "route table" (like a phone list.)
 
+// if I get a GET /status - create the Status:Api, Call the Get method
+// If I get a POST /sofware/{id:guid}/issues Call the Issues Api method.
 
 app.Run(); // That the application is running. This is a blocking call.
 

@@ -1,4 +1,6 @@
-﻿namespace IssueTracker.Api.Issues;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace IssueTracker.Api.Issues;
 
 public class Api : ControllerBase
 {
@@ -10,17 +12,23 @@ public class Api : ControllerBase
         // if that software id doesn't exist, return a 404
         // not worry about that for right now.
         // make sure the request is "Valid" - check the data
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
         // If it's good, save it to a database
         // Send a response - and maybe a copy of the thing we created.
         var response = new IssueResponse
         {
             Id = Guid.NewGuid(),
             Description = request.Description,
-            Impact = request.Impact,
+            Impact = request.Impact.Value,
             Status = IssueStatus.Submitted
         };
         return Ok(response);
     }
+
+
 
     [HttpPost("/software/{id:guid}/issues/questions")]
     public async Task<ActionResult> CreateAQuestionIssueAsync(Guid id)
@@ -41,8 +49,10 @@ public enum IssueImpact
 
 public record SubmitIssueRequest
 {
+    [Required, MinLength(3), MaxLength(512)]
     public string Description { get; set; } = string.Empty;
-    public IssueImpact Impact { get; set; } = IssueImpact.Question;
+    [Required]
+    public IssueImpact? Impact { get; set; }
 }
 
 public enum IssueStatus { Submitted, AssignedToTech, AssignedToHighPriorityTech }

@@ -88,6 +88,9 @@ public record SubmitIssueRequest
     public string Description { get; set; } = string.Empty;
     [Required]
     public IssueImpact? Impact { get; set; }
+
+    [Required]
+    public string MothersMaidenName { get; set; } = string.Empty;
 }
 
 public enum IssueStatus { Submitted, AssignedToTech, AssignedToHighPriorityTech }

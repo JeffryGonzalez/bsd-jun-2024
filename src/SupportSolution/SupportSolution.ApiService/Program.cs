@@ -29,10 +29,19 @@ app.MapGet("/weatherforecast", () =>
     return forecast;
 });
 
+
+app.MapGet("/techs/{id:guid}", (Guid Id) =>
+{
+    var response = new SupportInfo("Nick", "555-1212");
+    return TypedResults.Ok(response);
+});
+
 app.MapDefaultEndpoints();
+
 
 app.Run();
 
+record SupportInfo(string Name, string PhoneNumber);
 record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
 {
     public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);

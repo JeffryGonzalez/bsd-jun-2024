@@ -1,4 +1,8 @@
 services:
+  supportapi:
+    image: jeffrygonzalez/support-api-jun-2023:v1
+    ports:
+      - 8080:8080
   db:
     image: postgres:16.2-bullseye
     restart: always

@@ -19,7 +19,7 @@ if (app.Environment.IsDevelopment())
 
 app.MapGet("/techs/{id:guid}", (Guid Id) =>
 {
-    var response = new SupportInfo("Nick", "555-1212");
+    var response = new SupportInfo("Ritul", "555-1212");
     return TypedResults.Ok(response);
 });
 app.Run();

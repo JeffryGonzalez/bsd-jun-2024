@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: support-api
+  namespace: hypertheory
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: support-api
+  template:
+    metadata:
+      labels:
+        app: support-api
+    spec:
+      
+      containers:
+      - name: support-api
+        image: jeffrygonzalez/support-api-jun-2023:v3
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+          requests:
+            memory: "80Mi"
+            cpu: "250m"
+        ports:
+        - containerPort: 8080
